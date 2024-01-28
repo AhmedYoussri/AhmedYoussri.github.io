@@ -140,7 +140,69 @@
     <button id="run-btnUniform" type="button" class="button-21">Uniform Distribution</button>
   </tr>
 </table>
-  
+
+ <script>
+        // Initialize Office.js
+        Office.onReady(function (info) { });
+
+        // Add a click event listener to the button
+          document.getElementById("run-btnUniform").addEventListener("click", runwsgetUniform);
+
+   async function runwsposthello() {
+  await Excel.run(async (context) => {
+    let activeCell = context.workbook.getActiveCell();
+    activeCell.load("address, values,columnIndex,rowIndex");
+    await context.sync();
+
+    console.log("The active cell is " + activeCell.columnIndex + activeCell.rowIndex);
+    const sheets = context.workbook.worksheets;
+    let cell = sheets.getItem("Sheet1").getCell(activeCell.rowIndex,activeCell.columnIndex );
+    cell.load("address, values");
+    await context.sync();
+    var jsonDate = cell.values[0][0];
+    console.error(jsonDate);
+    var text = " ";
+    await new Promise(function (resolve, reject) {
+      const url = "https://b6d7-35-233-229-130.ngrok-free.app/uniform";
+      var response = "";
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (xhttp.readyState !== 4) return;
+
+        if (xhttp.status == 200) {
+          resolve(JSON.parse(xhttp.responseText).watchers_count);
+          response = xhttp.responseText;
+          text = xhttp.responseText;
+          console.error("MAIN " + response);
+          return response;
+
+        } else {
+          reject({
+            status: xhttp.status,
+
+            statusText: xhttp.statusText
+          });
+        }
+      };
+
+      xhttp.open("POST", url, true);
+      xhttp.setRequestHeader("ngrok-skip-browser-warning", "1");
+      xhttp.setRequestHeader('Content-Type', 'application/json');
+      console.error("before va" + jsonDate);
+      xhttp.send(JSON.stringify(jsonDate));
+
+    });;
+
+    console.error(text);
+    console.error("after call");
+    await context.sync();
+
+
+    sheets.getItem("Sheet1").getCell(activeCell.rowIndex, activeCell.columnIndex+1).values  = [[ text]];
+    await context.sync();
+  });
+}
+   
 </body>
 
 </html>
