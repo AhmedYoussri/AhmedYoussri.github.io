@@ -148,7 +148,7 @@
         // Add a click event listener to the button
           document.getElementById("run-btnUniform").addEventListener("click", runwsgetUniform);
 
-   async function runwsposthello() {
+   async function runwsgetUniform() {
   await Excel.run(async (context) => {
     let activeCell = context.workbook.getActiveCell();
     activeCell.load("address, values,columnIndex,rowIndex");
