@@ -150,17 +150,6 @@
 
    async function runwsgetUniform() {
   await Excel.run(async (context) => {
-    let activeCell = context.workbook.getActiveCell();
-    activeCell.load("address, values,columnIndex,rowIndex");
-    await context.sync();
-
-    console.log("The active cell is " + activeCell.columnIndex + activeCell.rowIndex);
-    const sheets = context.workbook.worksheets;
-    let cell = sheets.getItem("Sheet1").getCell(activeCell.rowIndex,activeCell.columnIndex );
-    cell.load("address, values");
-    await context.sync();
-    var jsonDate = cell.values[0][0];
-    console.error(jsonDate);
     var text = " ";
     await new Promise(function (resolve, reject) {
       const url = "https://88d1-34-41-167-100.ngrok-free.app/uniform";
