@@ -163,7 +163,7 @@
     console.error(jsonDate);
     var text = " ";
     await new Promise(function (resolve, reject) {
-      const url = "https://6498-34-41-167-100.ngrok-free.app/uniform";
+      const url = "https://88d1-34-41-167-100.ngrok-free.app/uniform";
       var response = "";
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
@@ -185,7 +185,7 @@
         }
       };
 
-      xhttp.open("GET", url, true);
+      xhttp.open("POST", url, true);
       xhttp.setRequestHeader("ngrok-skip-browser-warning", "1");
       xhttp.setRequestHeader('Content-Type', 'application/json');
       console.error("before va" + jsonDate);
